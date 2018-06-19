@@ -4,5 +4,5 @@
 \alias{jsvis}
 \title{jsvis}
 \description{
-adljahfsljdhlafjsldfj
+This package facilitates the use of JavaScript in R for animated / interactive data visualisation.
 }

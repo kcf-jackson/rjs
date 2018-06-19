@@ -1,4 +1,25 @@
-#' A family of functions to add HTML 5 elements.
+#' A family of functions for adding HTML 5 elements.
+#' @description The \code{add} environment wraps around the \code{htmltools::tags} environments, and it contains 
+#' functions for all valid HTML5 tags. 
+#' @param html An HTML object, e.g. output from create_html().
+#' @param into Characters; an identifier. It could be a tag name, an element id or a class name.
+#' @param ... Element contents and attributes; attrbutes must be named. See references for 
+#' HTML5-tags guides. 
+#' @references Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}
+#' @name builder
+#' @examples 
+#' \dontrun{
+#' library(magrittr)
+#' library(jsvis)
+#' 
+#' create_html() %>% 
+#'   add$title("A demo webpage", size = 2) %>% 
+#'   add$div("I am a DIV") %>% 
+#'   start_app()
+#' }
+#' @format NULL
+#' @docType NULL
+#' @keywords NULL
 #' @export
 add <- purrr::map(
   .x = htmltools::tags,

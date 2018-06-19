@@ -9,7 +9,7 @@ add_elements(html, into, el)
 \arguments{
 \item{html}{An HTML object, e.g. output from create_html().}
 
-\item{into}{characters; an identifier. It could be a tag name, a element id or a class name.}
+\item{into}{characters; an identifier. It could be a tag name, an element id or a class name.}
 
 \item{el}{An HTML tag object, see htmltools::tag for details.}
 }

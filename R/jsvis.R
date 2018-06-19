@@ -2,5 +2,6 @@
 #' @name jsvis
 #' @importFrom utils browseURL
 #' @importFrom magrittr %<>% %>%
-#' @description adljahfsljdhlafjsldfj
+#' @export %<>% %>%
+#' @description This package facilitates the use of JavaScript in R for animated / interactive data visualisation.
 utils::globalVariables(".")
