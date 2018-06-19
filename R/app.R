@@ -13,8 +13,10 @@ start_app <- function(my_html, user_function = identity, server = F, assets_fold
   dir.create(temp_dir)
   file_path <- file.path(temp_dir, "index.html")
   htmltools::save_html(my_html, file_path)
-  # if (!missing(assets_folder)) copy_assets(assets_folder, temp_dir)
-
+  if (!missing(assets_folder)) {
+    copy_assets(assets_folder, temp_dir)
+  }
+    
   if (server == F) {
     getOption("viewer")(file_path)
   } else {
