@@ -8,10 +8,6 @@
 add
 }
 \arguments{
-\item{html}{An HTML object, e.g. output from create_html().}
-
-\item{into}{Characters; an identifier. It could be a tag name, an element id or a class name.}
-
 \item{...}{Element contents and attributes; attrbutes must be named. See references for 
 HTML5-tags guides.}
 }
@@ -21,12 +17,11 @@ functions for all valid HTML5 tags.
 }
 \examples{
 \dontrun{
-library(magrittr)
 library(jsvis)
-
 create_html() \%>\% 
-  add$title("A demo webpage", size = 2) \%>\% 
-  add$div("I am a DIV") \%>\% 
+  add_title("A demo webpage", size = 2) \%>\% 
+  add$div("body", "I am a DIV") \%>\% 
+  add_row("I am a DIV") \%>\% 
   start_app()
 }
 }
