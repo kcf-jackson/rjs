@@ -1,15 +1,23 @@
 # Insert a websocket connection and convert html to string.
 insert_websockets <- function(filepath, wsUrl) {
-  tag_index <- . %>% purrr::map_lgl(., ~grepl("<script>", .x)) %>% which()
-  has_script <- . %>% tag_index() %>% any()
+  htag_index <- . %>% purrr::map_lgl(., ~grepl("<head>", .x)) %>% which()
+  stag_index <- . %>% purrr::map_lgl(., ~grepl("<script>", .x)) %>% which()
+  has_script <- . %>% stag_index() %>% any()
   
   my_html <- readLines(filepath)
-  if (!has_script(my_html)) {
-    stop("Your file doesn't contain a <script> tag that occupies a single line.")
-  }
-  
   wsUrl_line <- sprintf("var ws = new WebSocket(%s);", wsUrl)
-  JS_(append(my_html, wsUrl_line, after = min(tag_index(my_html))))
+  
+  if (!has_script(my_html)) {
+    r_ind <- min(htag_index(my_html))
+    insert_tag <- "<head>"
+    replacement <- paste("<head>", "<script>", wsUrl_line, "</script>\n", sep = "\n ")
+  } else {
+    r_ind <- min(stag_index(my_html))
+    insert_tag <- "<script>"
+    replacement <- paste("<script>", wsUrl_line, "", sep = "\n ")
+  }
+  my_html[r_ind] <- gsub(insert_tag, replacement, my_html[r_ind])
+  JS_(my_html)
 }
 
 
@@ -28,6 +36,6 @@ copy_assets <- function(path, target_dir) {
     success <- file.copy(path, target_dir)
   }
   
-  # if (success) print("Folder copied successfully")
+  if (success) print("Folder copied successfully")
   target_dir
 }
