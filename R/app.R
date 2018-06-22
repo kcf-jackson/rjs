@@ -34,7 +34,7 @@ unescape_html <- function(fpath) {
   unescape <- function(x) {
     table0 <- list('&' = '&amp;', '<' = '&lt;', '>' = '&gt;', "'" = '&#39;', '"' = '&quot;')
     .f <- function(x, y, z) { gsub(y, z, x) }
-    purrr::reduce2(table9, names(table0), .f, .init = x)
+    purrr::reduce2(table0, names(table0), .f, .init = x)
   }
   readLines(fpath) %>% 
     purrr::map_chr(unescape) %>% 
