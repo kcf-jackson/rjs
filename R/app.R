@@ -1,5 +1,5 @@
 #' Run an interactive app
-#' @param my_html html in a vector of strings; output from 'create_html'.
+#' @param my_html An HTML object; output from 'create_html'.
 #' @param user_function R function; the function to process the data from the web interface.
 #' @param server T or F; whether to enable interaction between JS and R.
 #' @param assets_folder path of the assets.
@@ -9,10 +9,10 @@
 #' @export
 start_app <- function(my_html, user_function = identity, server = F, assets_folder, 
                       host = "localhost", port = 9454, browser = "viewer") {
-  temp_dir <- tempfile()
-  dir.create(temp_dir)
+  temp_dir <- tempdir()
   file_path <- file.path(temp_dir, "index.html")
-  htmltools::save_html(my_html, file_path)
+  htmltools::save_html(my_html, file_path, libdir = temp_dir)
+  unescape_html(file_path)
   if (!missing(assets_folder)) {
     copy_assets(assets_folder, temp_dir)
   }
@@ -26,6 +26,20 @@ start_app <- function(my_html, user_function = identity, server = F, assets_fold
     host <- ifelse(host == "localhost", "0.0.0.0", host)
     httpuv::runServer(host, port, my_app, 250)
   }
+}
+
+
+# Unescape special characters in JS files
+unescape_html <- function(fpath) {
+  unescape <- function(x) {
+    table0 <- list('&' = '&amp;', '<' = '&lt;', '>' = '&gt;', "'" = '&#39;', '"' = '&quot;')
+    .f <- function(x, y, z) { gsub(y, z, x) }
+    purrr::reduce2(table9, names(table0), .f, .init = x)
+  }
+  readLines(fpath) %>% 
+    purrr::map_chr(unescape) %>% 
+    JS_() %>% 
+    writeLines(fpath)
 }
 
 
