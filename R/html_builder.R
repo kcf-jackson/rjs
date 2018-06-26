@@ -56,6 +56,14 @@ set_default <- function(FUN, ...) {
 
 
 # Containers
+add_svg <- function(my_html, ..., into = "body") {
+  content <- if_else(missing(...), "", list(...))
+  add_elements(my_html, into, htmltools::tag("svg", content))
+}
+add_image <- function(my_html, ..., into = "body") {
+  content <- if_else(missing(...), "", list(...))
+  add_elements(my_html, into, htmltools::tag("image", content))
+}
 add_span <- set_default(add$span, into = "body")
 add_div <- set_default(add$div, into = "body")
 add_row <- set_default(add$div, into = "body", class = "row")
@@ -90,7 +98,7 @@ add_dropdown_list <- function(html, options, labels, ..., into = "body") {
 add_style <- set_default(add$style, into = "head")
 add_style_from_link <- set_default(add$link, into = "head", rel = "stylesheet")
 add_style_from_file <- function(html, href, ...) {
-  inline = F
+  inline = T
   if (inline) return(add_style(html, JS_(readLines(href)), ...))
   add_style_from_link(html, href = href, ...)
 }
@@ -112,7 +120,8 @@ add_bootstrap_style <- set_default(
 
 # Script
 add_script <- add_script_from_link <- set_default(add$script, into = "head")
-add_script_from_file <- function(html, src, inline = T, ...) {
+add_script_from_file <- function(html, src, ...) {
+  inline = T
   if (inline) return(add_script(html, JS_(readLines(src)), ...))
   add_script_from_link(html, src = src, ...)
 }
