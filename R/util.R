@@ -20,3 +20,8 @@ add_pipe <- function(user_fun) {
     jsonlite::toJSON(out_msg)
   })
 }
+
+
+make_id <- function(...) {
+  paste(..., sep = "_") 
+}

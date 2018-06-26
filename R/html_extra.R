@@ -64,7 +64,7 @@ add_google_style_button <- function(my_html, material_id, ..., into = "body") {
 #'   add_google_toggle_button(into = "body", widget_id = "gbutton_1") %>% 
 #'   start_app()
 #' @note The two material-icons should have the same size.
-add_google_toggle_button <- function(my_html, into, widget_id, 
+add_google_toggle_button <- function(my_html, into = "body", widget_id, 
                                      material_1 = "play_circle_outline", 
                                      material_2 = "pause_circle_outline", ...) {
   id_1 <- make_id(widget_id, material_1)
