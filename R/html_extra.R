@@ -18,10 +18,10 @@ add_grid <- function(my_html, nr, nc, first = "row", into = "body") {
     dimn <- c(nc, nr)
   }
   fst_ids <- paste0(param$fst, "_", seq(dimn[1]))
-  my_html %<>% add_array(ids = fst_ids, into = into, param$fst_fun)
+  my_html %<>% map_add(param$fst_fun, args_list = list(id = fst_ids), into = into)
   for (i in fst_ids) {
     snd_ids <- paste0(i, "_", param$snd, "_", seq(dimn[2]))
-    my_html %<>% add_array(ids = snd_ids, into = i, param$snd_fun)
+    my_html %<>% map_add(param$snd_fun, args_list = list(id = snd_ids), into = i)
   }
   my_html
 }
@@ -58,12 +58,23 @@ add_google_style_button <- function(my_html, material_id, ..., into = "body") {
 
 
 #' Add a toggle button with google material design
-#' @examples 
+#' @param my_html An HTML object; output from 'create_html'.
+#' @param into characters; an identifier. It could be a tag name, an element id or a class name.
+#' @param widget_id character; an unique identifier for the widget.
+#' @param material_1 Material id from google material design, e.g. "play_circle_outline". More other options, see \url{https://material.io/icons/}.
+#' @param material_2 Material id from google material design, e.g. "pause_circle_outline". More other options, see \url{https://material.io/icons/}.
+#' @param ... Element contents and attributes for the widgets (div); attrbutes must be named. See references for 
+#' HTML5-tags guides. 
+#' @references Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}
+#' @examples
+#' \dontrun{ 
 #' create_html() %>% 
 #'   add_google_style() %>% 
 #'   add_google_toggle_button(into = "body", widget_id = "gbutton_1") %>% 
 #'   start_app()
+#' }
 #' @note The two material-icons should have the same size.
+#' @export
 add_google_toggle_button <- function(my_html, into = "body", widget_id, 
                                      material_1 = "play_circle_outline", 
                                      material_2 = "pause_circle_outline", ...) {
@@ -96,10 +107,22 @@ function toggle_%s() {
 
 #' Counter widget
 #' A counter widget consists of a label and a counter (<label> + <span>).
+#' @param my_html An HTML object; output from 'create_html'.
+#' @param into characters; an identifier. It could be a tag name, an element id or a class name.
+#' @param widget_id character; an unique identifier for the widget.
+#' @param label (optional) character; the label text.
+#' @param label_id (optional) character; an unique identifier for the label. 
+#' Default to be "XXX_label", where XXX is the widget_id.
+#' @param counter (optional) numeric; starting value of the counter.
+#' @param counter_id (optional) character; an unique identifier for the counter. 
+#' Default to be "XXX_counter", where XXX is the widget_id.
 #' @examples 
+#' \dontrun{
 #' create_html() %>% 
 #'   add_counter(widget_id = "counter_1") %>% 
 #'   start_app()
+#' }
+#' @export
 add_counter <- function(my_html, into = "body", widget_id, 
                         label = "My Counter", label_id, 
                         counter = 0, counter_id) {
@@ -114,10 +137,25 @@ add_counter <- function(my_html, into = "body", widget_id,
 
 #' Slider widget
 #' A slider widget consists of 2 labels and a slider (<span> + <label> + <input>)
+#' @param my_html An HTML object; output from 'create_html'.
+#' @param into characters; an identifier. It could be a tag name, an element id or a class name.
+#' @param widget_id character; an unique identifier for the widget.
+#' @param label (optional) character; the label text.
+#' @param label_id (optional) character; an unique identifier for the label. 
+#' Default to be "XXX_label", where XXX is the widget_id.
+#' @param value (optional) numeric; starting value of the slider.
+#' @param slider_id (optional) character; an unique identifier for the counter. 
+#' Default to be "XXX_slider", where XXX is the widget_id.
+#' @param ... Element contents and attributes for the slider; attrbutes must be named. 
+#' See references for HTML5-tags guides. 
+#' @references Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}
 #' @examples 
+#' \dontrun{
 #' create_html() %>% 
-#'   add_slider(widget_id = "slider_1") %>% 
+#'   add_slider_with_text(widget_id = "slider_1") %>% 
 #'   start_app()
+#' }
+#' @export
 add_slider_with_text <- function(my_html, into = "body", widget_id, 
                        label = "My Slider", label_id, 
                        value = 50, slider_id, ...) {
@@ -127,8 +165,31 @@ add_slider_with_text <- function(my_html, into = "body", widget_id,
   change_script <- sprintf("%s.value = value", output_id)
   my_html %>% 
     add$div(into = into, id = widget_id) %>% 
-      add$span(into = widget_id, label) %>% 
-      add$output(into = widget_id, value, id = label_id, "for" = slider_id) %>% 
+      add$span(into = widget_id, label, id = label_id) %>% 
+      add$output(into = widget_id, value, id = output_id, "for" = slider_id) %>% 
       add$input(into = widget_id, id = slider_id, type = "range", 
                 oninput = change_script, value = value, ...)
+}
+
+
+#' Radio button group
+#' @param my_html An HTML object; output from 'create_html'.
+#' @param into characters; an identifier. It could be a tag name, an element id or a class name.
+#' @param widget_id character; an unique identifier for the widget.
+#' @param values vector; the underlying values of the selections.
+#' @param labels character vector; the labels shown in the app. 
+#' @param stack T or F; if TRUE, the radio buttons are stacked vertically.
+#' @param ... Element contents and attributes for the radio widget; attrbutes must be named. 
+#' See references for HTML5-tags guides. 
+#' @references Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}
+#' @export
+add_radio_button_group <- function(my_html, into, widget_id, values, labels, stack = T, ...) {
+  stack_radio_button <- function(my_html, into, ...) {
+    my_html %>% 
+      add_radio_button(into = into, ...) %>% 
+      add$br(into = into)
+  }
+  add_radio_fun <- if_else(stack, stack_radio_button, add_radio_button) 
+  map_add(my_html, add_radio_fun, into = into, name = widget_id, 
+          list(value = values, labels), ...)
 }
