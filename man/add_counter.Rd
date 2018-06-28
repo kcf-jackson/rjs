@@ -8,12 +8,31 @@ A counter widget consists of a label and a counter (<label> + <span>).}
 add_counter(my_html, into = "body", widget_id, label = "My Counter",
   label_id, counter = 0, counter_id)
 }
+\arguments{
+\item{my_html}{An HTML object; output from 'create_html'.}
+
+\item{into}{characters; an identifier. It could be a tag name, an element id or a class name.}
+
+\item{widget_id}{character; an unique identifier for the widget.}
+
+\item{label}{(optional) character; the label text.}
+
+\item{label_id}{(optional) character; an unique identifier for the label. 
+Default to be "XXX_label", where XXX is the widget_id.}
+
+\item{counter}{(optional) numeric; starting value of the counter.}
+
+\item{counter_id}{(optional) character; an unique identifier for the counter. 
+Default to be "XXX_counter", where XXX is the widget_id.}
+}
 \description{
 Counter widget
 A counter widget consists of a label and a counter (<label> + <span>).
 }
 \examples{
+\dontrun{
 create_html() \%>\% 
   add_counter(widget_id = "counter_1") \%>\% 
   start_app()
+}
 }

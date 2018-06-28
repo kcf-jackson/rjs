@@ -17,5 +17,9 @@ add_elements(html, into, el)
 Generic function to insert an element into a HTML document
 }
 \note{
-One should use the add-* family of functions for valid HTML5 tags.
+One should use the \link{add} family of functions for valid HTML5 tags.
+}
+\examples{
+create_html() \%>\% 
+  add_elements(into = "body", htmltools::tags$div("I am a div"))
 }

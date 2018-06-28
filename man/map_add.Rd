@@ -4,16 +4,16 @@
 \alias{map_add}
 \title{Add a list of div's to the HTML}
 \usage{
-map_add(my_html, add_fun, n, id_prefix = "item_", into = "body")
+map_add(my_html, add_fun, args_list, n, into = "body", ...)
 }
 \arguments{
 \item{my_html}{An HTML object; output from 'create_html'.}
 
-\item{add_fun}{function; the add function to be called}
+\item{add_fun}{function; the add-html5-tag function to be called.}
+
+\item{args_list}{a list of lists containing the arguments to pass to \code{add_fun}.}
 
 \item{n}{integer; number of elements to add.}
-
-\item{id_prefix}{character; prefix to be added to}
 
 \item{into}{characters; an identifier. It could be a tag name, an element id or a class name.}
 }
@@ -21,5 +21,5 @@ map_add(my_html, add_fun, n, id_prefix = "item_", into = "body")
 Add a list of div's to the HTML
 }
 \examples{
-create_html() \%>\% map_add(add_row, 5, id_prefix = "row_")
+create_html() \%>\% map_add(add_row, list(id = make_id("row", 1:5)))
 }

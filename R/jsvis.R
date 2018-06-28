@@ -4,6 +4,7 @@
 #' @description This package facilitates the use of JavaScript in R for animated / interactive data visualisation.
 utils::globalVariables(".")
 
+
 #' Forward pipe operator
 #'
 #' @name %>%

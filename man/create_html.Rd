@@ -9,3 +9,6 @@ create_html()
 \description{
 Create an empty HTML document
 }
+\examples{
+create_html()
+}
