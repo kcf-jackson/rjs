@@ -16,6 +16,8 @@ map_add(my_html, add_fun, args_list, n, into = "body", ...)
 \item{n}{integer; number of elements to add.}
 
 \item{into}{characters; an identifier. It could be a tag name, an element id or a class name.}
+
+\item{...}{(Optional) Other parameters to pass to \code{add_fun}.}
 }
 \description{
 Add a list of div's to the HTML

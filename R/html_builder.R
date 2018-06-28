@@ -197,6 +197,7 @@ js_src <- function() {
 #' @param args_list a list of lists containing the arguments to pass to \code{add_fun}.
 #' @param n integer; number of elements to add.
 #' @param into characters; an identifier. It could be a tag name, an element id or a class name.
+#' @param ... (Optional) Other parameters to pass to \code{add_fun}.
 #' @examples
 #' create_html() %>% map_add(add_row, list(id = make_id("row", 1:5)))
 #' @export
