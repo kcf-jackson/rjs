@@ -1,32 +1,6 @@
-#' A family of functions for adding HTML 5 elements.
-#' @description The \code{add} environment wraps around the \code{htmltools::tags} environments, and it contains 
-#' functions for all valid HTML5 tags. 
-# #' @param html An HTML object, e.g. output from create_html().
-# #' @param into Characters; an identifier. It could be a tag name, an element id or a class name.
-#' @param ... Element contents and attributes; attrbutes must be named. See references for 
-#' HTML5-tags guides. 
-#' @references Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}
-#' @name builder
-#' @examples 
-#' \dontrun{
-#' library(jsvis)
-#' create_html() %>% 
-#'   add_title("A demo webpage", size = 2) %>% 
-#'   add$div("body", "I am a DIV") %>% 
-#'   add_row("I am a DIV") %>% 
-#'   start_app()
-#' }
-#' @format NULL
-#' @docType NULL
-#' @keywords NULL
-#' @export
-add <- purrr::map(
-  .x = htmltools::tags,
-  .f = ~{ function(html, into, ...) { add_elements(html, into, .x(...)) } }
-)
-
-
-# Derived functions
+# ===========================================================================================
+# This file contains functions derived from the `add` family of functions
+# ===========================================================================================
 #' Set default of a function
 #' @description Sets default parameter of a function.
 #' @param FUN A function.
@@ -54,62 +28,109 @@ set_default <- function(FUN, ...) {
   }
 }
 
-
-# Containers
+# ======================================== SVG ==============================================
+#' @rdname add_svg
+#' @export
 add_svg <- function(my_html, ..., into = "body") {
   content <- if_else(missing(...), "", list(...))
   add_elements(my_html, into, htmltools::tag("svg", content))
 }
+
+#' @rdname add_svg
+#' @export
 add_image <- function(my_html, ..., into = "body") {
   content <- if_else(missing(...), "", list(...))
   add_elements(my_html, into, htmltools::tag("image", content))
 }
+
+# ===================================== Containers ===========================================
+#' @rdname add_containers
+#' @export
 add_span <- set_default(add$span, into = "body")
+
+#' @rdname add_containers
+#' @export
 add_div <- set_default(add$div, into = "body")
+
+#' @rdname add_containers
+#' @export
 add_row <- set_default(add$div, into = "body", class = "row")
+
+#' @rdname add_containers
+#' @export
 add_column <- set_default(add$div, into = "body", class = "column")
+
+#' @rdname add_containers
+#' @export
 add_item <- set_default(add$div, into = "body", class = "item")
+
+#' @rdname add_containers
+#' @export
 add_container <- set_default(add$div, into = "body", class = "container")
 
-
-# Text and titles
+# ================================== Text and titles ========================================
+#' @rdname add_text
+#' @export
 add_text <- set_default(add$span, into = "body")
-add_title <- function(html, ..., size = 3) {
+
+#' @rdname add_text
+#' @param size integer from 1 to 6; size of the title.
+#' @export
+add_title <- function(my_html, ..., size = 3, into = "body") {
   fun <- paste0("h", size)
-  set_default(add[[fun]], into = "body")(html, ...)
+  set_default(add[[fun]], into = into)(my_html, ...)
 }
 
-
-# Input widgets
+# =================================== Input widgets =========================================
+#' @rdname add_widgets
+#' @export
 add_button <- set_default(add$input, into = "body", type = "button")
+
+#' @rdname add_widgets
+#' @export
 add_slider <- set_default(add$input, into = "body", type = "range")
-add_dropdown_list <- function(html, options, labels, ..., into = "body") {
-  if (missing(labels)) labels <- options
-  assertthat::assert_that(length(options) == length(labels))
-  add$select(html, into,
-             purrr::map(
-               seq_along(labels),
-               ~htmltools::tags$option(value = options[.x], labels[.x])
-             ), ...)
-}
 
+#' @rdname add_widgets
+#' @export
+add_radio_button <- set_default(add$input, into = "body", type = "radio")
 
-# Style
+# add_dropdown_list <- function(my_html, options, labels, ..., into = "body") {
+#   if (missing(labels)) labels <- options
+#   assertthat::assert_that(length(options) == length(labels))
+#   add$select(my_html, into,
+#              purrr::map(
+#                seq_along(labels),
+#                ~htmltools::tags$option(value = options[.x], labels[.x])
+#              ), ...)
+# }
+
+# ====================================== Style =============================================
+#' @rdname add_style
+#' @export
 add_style <- set_default(add$style, into = "head")
+
+#' @rdname add_style
+#' @export
 add_style_from_link <- set_default(add$link, into = "head", rel = "stylesheet")
-add_style_from_file <- function(html, href, ...) {
+
+#' @rdname add_style
+#' @param href character; path to the local css file.
+#' @export
+add_style_from_file <- function(my_html, href, ...) {
   inline = T
-  if (inline) return(add_style(html, JS_(readLines(href)), ...))
-  add_style_from_link(html, href = href, ...)
+  if (inline) return(add_style(my_html, JS_(readLines(href)), ...))
+  add_style_from_link(my_html, href = href, ...)
 }
 
-
+#' @rdname add_style
+#' @export
 add_google_style <- set_default(
   add_style_from_link,
   href = "https://fonts.googleapis.com/icon?family=Material+Icons"
 )
 
-
+#' @rdname add_style
+#' @export
 add_bootstrap_style <- set_default(
   add_style_from_link,
   href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
@@ -118,18 +139,26 @@ add_bootstrap_style <- set_default(
 )
 
 
-# Script
-add_script <- add_script_from_link <- set_default(add$script, into = "head")
-add_script_from_file <- function(html, src, ...) {
+# ====================================== Script =============================================
+#' @rdname add_script
+#' @export
+add_script <- set_default(add$script, into = "head")
+
+#' @rdname add_script
+#' @export
+add_script_from_link <- set_default(add$script, into = "head")
+
+#' @rdname add_script
+#' @param src character; path to the local JS file.
+#' @export
+add_script_from_file <- function(my_html, src, ...) {
   inline = T
-  if (inline) return(add_script(html, JS_(readLines(src)), ...))
-  add_script_from_link(html, src = src, ...)
+  if (inline) return(add_script(my_html, JS_(readLines(src)), ...))
+  add_script_from_link(my_html, src = src, ...)
 }
 
-
-#' Add JavaScript libraries to a HTML file
+#' @rdname add_script
 #' @description Add JS libraries links to html header
-#' @param my_html An HTML object, e.g. output from create_html().
 #' @param js_libs A character vector. The JavaScript libraries to use. Currently support 'plotly', 'p5', 'd3' and 'vega'.
 #' @export
 add_js_library <- function(my_html, js_libs) {
@@ -161,25 +190,32 @@ js_src <- function() {
 }
 
 
+# ====================================== Functional =============================================
 #' Add a list of div's to the HTML
 #' @param my_html An HTML object; output from 'create_html'.
+#' @param add_fun function; the add-html5-tag function to be called.
+#' @param args_list a list of lists containing the arguments to pass to \code{add_fun}.
 #' @param n integer; number of elements to add.
-#' @param id_prefix character; prefix to be added to 
-#' @param add_fun function; the add function to be called 
 #' @param into characters; an identifier. It could be a tag name, an element id or a class name.
-#' @export
 #' @examples
-#' create_html() %>% map_add(add_row, 5, id_prefix = "row_")
-map_add <- function(my_html, add_fun, n, id_prefix = "item_", into = "body") {
-  add_array(my_html, ids = paste0(id_prefix, seq(n)), into, add_fun)
+#' create_html() %>% map_add(add_row, list(id = make_id("row", 1:5)))
+#' @export
+map_add <- function(my_html, add_fun, args_list, n, into = "body", ...) {
+  if (missing(n) && missing(args_list)) 
+    stop("One of 'n' and 'list0' must be present.") 
+  
+  if (missing(args_list)) 
+    args_list <- list(rep("", n))
+  
+  if (length(into) > 1) {
+    args_list <- append(list(into = into), args_list)
+    return(add_array(my_html, add_fun, args_list, ...))
+  }
+    
+  add_array(my_html, add_fun, args_list, into = into, ...)
 }
 
-
 # Use `add_fun` to add an array of elements with `ids` into a specific tag `into`.
-add_array <- function(my_html, ids, into, add_fun) {
-  .f <- function(my_html, id, into) { 
-    # Wrap function sicne `add_fun` doesn't have named arguments
-    add_fun(my_html, id = id, into = into) 
-  }
-  purrr::reduce(ids, .f, .init = my_html, into = into)
+add_array <- function(my_html, add_fun, list0, ...) {
+  preduce(list0, add_fun, .init = my_html, ...)
 }
