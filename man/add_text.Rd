@@ -16,12 +16,22 @@ HTML5-tags guides.}
 
 \item{my_html}{An HTML object, e.g. output from create_html().}
 
-\item{size}{integer from 1 to 6; size of the title.}
+\item{size}{integer from 1 to 6; size of the title. 1 is the largest.}
 
 \item{into}{Characters; an identifier. It could be a tag name, an element id or a class name.}
 }
 \description{
-Helper functions to add element to HTML
+There are two functions in this class: \code{add_text} and \code{add_title}.
+\code{add_text} is <span> tag and \code{add_title} is a <hX> tag, X from 1 to 6.
+}
+\examples{
+\dontrun{
+create_html() \%>\% 
+  add_title("This is a title") \%>\% 
+  add_title("This is a subtitle", size = 4) \%>\% 
+  add_text("Some description of your website here") \%>\% 
+  start_app()
+}
 }
 \references{
 Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}

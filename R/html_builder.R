@@ -74,7 +74,7 @@ add_container <- set_default(add$div, into = "body", class = "container")
 add_text <- set_default(add$span, into = "body")
 
 #' @rdname add_text
-#' @param size integer from 1 to 6; size of the title.
+#' @param size integer from 1 to 6; size of the title. 1 is the largest.
 #' @export
 add_title <- function(my_html, ..., size = 3, into = "body") {
   fun <- paste0("h", size)
@@ -82,15 +82,15 @@ add_title <- function(my_html, ..., size = 3, into = "body") {
 }
 
 # =================================== Input widgets =========================================
-#' @rdname add_widgets
+#' @rdname add_widget
 #' @export
 add_button <- set_default(add$input, into = "body", type = "button")
 
-#' @rdname add_widgets
+#' @rdname add_widget
 #' @export
 add_slider <- set_default(add$input, into = "body", type = "range")
 
-#' @rdname add_widgets
+#' @rdname add_widget
 #' @export
 add_radio_button <- set_default(add$input, into = "body", type = "radio")
 
@@ -106,14 +106,18 @@ add_radio_button <- set_default(add$input, into = "body", type = "radio")
 
 # ====================================== Style =============================================
 #' @rdname add_style
+#' @description Adds inline style to HTML.
 #' @export
 add_style <- set_default(add$style, into = "head")
 
 #' @rdname add_style
+#' @description Adds style from external links.
 #' @export
 add_style_from_link <- set_default(add$link, into = "head", rel = "stylesheet")
 
 #' @rdname add_style
+#' @description Adds a style script from local file; currently this is done inline.
+#' @param my_html An HTML object, e.g. output from create_html().
 #' @param href character; path to the local css file.
 #' @export
 add_style_from_file <- function(my_html, href, ...) {
@@ -141,14 +145,18 @@ add_bootstrap_style <- set_default(
 
 # ====================================== Script =============================================
 #' @rdname add_script
+#' @description Adds inline script to HTML.
 #' @export
-add_script <- set_default(add$script, into = "head")
+add_script <- set_default(add$script, into = "body")
 
 #' @rdname add_script
+#' @description Adds a script from an external link.
 #' @export
 add_script_from_link <- set_default(add$script, into = "head")
 
 #' @rdname add_script
+#' @description Adds a script from local file; currently this is done inline.
+#' @param my_html An HTML object, e.g. output from create_html().
 #' @param src character; path to the local JS file.
 #' @export
 add_script_from_file <- function(my_html, src, ...) {
@@ -158,7 +166,8 @@ add_script_from_file <- function(my_html, src, ...) {
 }
 
 #' @rdname add_script
-#' @description Add JS libraries links to html header
+#' @description Adds commonly used javascript liberaries via external links. 
+#' A note would be made when this function is called.
 #' @param js_libs A character vector. The JavaScript libraries to use. Currently support 'plotly', 'p5', 'd3' and 'vega'.
 #' @export
 add_js_library <- function(my_html, js_libs) {

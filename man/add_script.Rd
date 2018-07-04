@@ -17,7 +17,13 @@ add_script_from_file(my_html, src, ...)
 add_js_library(my_html, js_libs)
 }
 \arguments{
-\item{...}{Element contents and attributes; attrbutes must be named. See references for 
+\item{...}{Takes three arguments for \code{add_script} and \code{add_script_from_link}.
+
+\code{my_html} An HTML object, e.g. output from create_html().
+
+\code{into} Characters; an identifier. It could be a tag name, an element id or a class name. 
+
+\code{...} Element contents and attributes; attrbutes must be named. See references for 
 HTML5-tags guides.}
 
 \item{my_html}{An HTML object, e.g. output from create_html().}
@@ -25,13 +31,19 @@ HTML5-tags guides.}
 \item{src}{character; path to the local JS file.}
 
 \item{js_libs}{A character vector. The JavaScript libraries to use. Currently support 'plotly', 'p5', 'd3' and 'vega'.}
-
-\item{into}{Characters; an identifier. It could be a tag name, an element id or a class name.}
 }
 \description{
-Helper functions to add element to HTML
+Four ways to add script to HTML: \code{add_script}, \code{add_script_from_link}, 
+\code{add_script_from_file} and \code{add_js_library}.
 
-Add JS libraries links to html header
+Adds inline script to HTML.
+
+Adds a script from an external link.
+
+Adds a script from local file; currently this is done inline.
+
+Adds commonly used javascript liberaries via external links. 
+A note would be made when this function is called.
 }
 \references{
 Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}

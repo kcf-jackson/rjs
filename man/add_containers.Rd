@@ -23,15 +23,40 @@ add_item(...)
 add_container(...)
 }
 \arguments{
-\item{...}{Element contents and attributes; attrbutes must be named. See references for 
+\item{...}{Takes three arguments.
+
+\code{my_html} An HTML object, e.g. output from create_html().
+
+\code{into} Characters; an identifier. It could be a tag name, an element id or a class name. 
+
+\code{...} Element contents and attributes; attrbutes must be named. See references for 
 HTML5-tags guides.}
-
-\item{my_html}{An HTML object, e.g. output from create_html().}
-
-\item{into}{Characters; an identifier. It could be a tag name, an element id or a class name.}
 }
 \description{
-Helper functions to add element to HTML
+A container is either a <span> tag or a <div> tag. 
+General usage: <span> is for inline elements, and <div> is for elements that occupy an entire line.
+\code{add_X} is \code{add_div} with class initialised to be \code{X}. 
+See \link{add_grid} for adding many containers at once.
+}
+\examples{
+\dontrun{
+create_html() \%>\% 
+  add_span("I am a span") \%>\% 
+  add_span("I am a span 2") \%>\% 
+  start_app()
+
+create_html() \%>\% 
+  add_div("I am a div") \%>\% 
+  add_div("I am a div2") \%>\% 
+  start_app()
+
+create_html() \%>\% 
+  add_row("I am row 1", id = "row_1", style = "margin-left:50px") \%>\% 
+  add_row("I am row 2", id = "row_2", style = "margin-top: 50px") \%>\% 
+    add_div(into = "row_1", "Content 1") \%>\% 
+    add_div(into = "row_2", "Content 2") \%>\% 
+  start_app()
+}
 }
 \references{
 Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}

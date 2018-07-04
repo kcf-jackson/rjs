@@ -5,7 +5,7 @@
 \title{Run an interactive app}
 \usage{
 start_app(my_html, user_function = identity, server = F, assets_folder,
-  host = "localhost", port = 9454, browser = "viewer")
+  host = "localhost", port = 9454, browser = "viewer", quiet = F)
 }
 \arguments{
 \item{my_html}{An HTML object; output from 'create_html'.}
@@ -21,6 +21,8 @@ start_app(my_html, user_function = identity, server = F, assets_folder,
 \item{port}{integer; Port to host the app.}
 
 \item{browser}{"browser" (web) or "viewer" (R).}
+
+\item{quiet}{T or F; if T, display is suppressed.}
 }
 \description{
 Run an interactive app

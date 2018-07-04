@@ -4,15 +4,19 @@
 \alias{add_family}
 \title{Helper functions to add element to HTML}
 \arguments{
-\item{my_html}{An HTML object, e.g. output from create_html().}
+\item{...}{Takes three arguments: 
 
-\item{into}{Characters; an identifier. It could be a tag name, an element id or a class name.}
+\code{my_html} An HTML object, e.g. output from create_html(). 
 
-\item{...}{Element contents and attributes; attrbutes must be named. See references for 
+\code{into} Characters; an identifier. It could be a tag name, an element id or a class name.  
+
+\code{...} Element contents and attributes; attrbutes must be named. See references for 
 HTML5-tags guides.}
 }
 \description{
-Helper functions to add element to HTML
+The add_* functions are divided into 6 categories. See 
+\link{add_containers}, \link{add_text}, \link{add_widget}, \link{add_script}, 
+\link{add_style} and \link{add_svg}.
 }
 \references{
 Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}

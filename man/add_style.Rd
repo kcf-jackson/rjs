@@ -20,17 +20,29 @@ add_google_style(...)
 add_bootstrap_style(...)
 }
 \arguments{
-\item{...}{Element contents and attributes; attrbutes must be named. See references for 
+\item{...}{Takes three arguments for \code{add_style} and \code{add_style_from_link}.
+
+\code{my_html} An HTML object, e.g. output from create_html().  
+
+\code{into} Characters; an identifier. It could be a tag name, an element id or a class name. 
+Default is set to "head".  
+
+\code{...} Element contents and attributes; attrbutes must be named. See references for 
 HTML5-tags guides.}
 
 \item{my_html}{An HTML object, e.g. output from create_html().}
 
 \item{href}{character; path to the local css file.}
-
-\item{into}{Characters; an identifier. It could be a tag name, an element id or a class name.}
 }
 \description{
-Helper functions to add element to HTML
+Three ways to add style to HTML: \code{add_style}, \code{add_style_from_link} and
+\code{add_style_from_file}.
+
+Adds inline style to HTML.
+
+Adds style from external links.
+
+Adds a style script from local file; currently this is done inline.
 }
 \references{
 Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}
