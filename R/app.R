@@ -6,9 +6,10 @@
 #' @param host character string; Address to host the app.
 #' @param port integer; Port to host the app.
 #' @param browser "browser" (web) or "viewer" (R).
+#' @param quiet T or F; if T, display is suppressed.
 #' @export
 start_app <- function(my_html, user_function = identity, server = F, assets_folder, 
-                      host = "localhost", port = 9454, browser = "viewer") {
+                      host = "localhost", port = 9454, browser = "viewer", quiet = F) {
   temp_dir <- tempdir()
   file_path <- file.path(temp_dir, "index.html")
   htmltools::save_html(my_html, file_path, libdir = temp_dir)
@@ -18,15 +19,33 @@ start_app <- function(my_html, user_function = identity, server = F, assets_fold
   }
     
   if (server == F) {
-    getOption("viewer")(file_path)
+    if (!quiet) getOption("viewer")(file_path)
   } else {
     my_app <- create_app(file_path, user_function, server)
     address <- paste0("http://", host, ":", port)
-    browseURL(address, browser = getOption(browser))
+    if (!quiet) browseURL(address, browser = getOption(browser))
     host <- ifelse(host == "localhost", "0.0.0.0", host)
     httpuv::runServer(host, port, my_app, 250)
   }
 }
+
+
+# start_app_from_file <- function(filepath, user_function, server = F, assets_folder,
+#                                 host = "localhost", port = 9454, browser = "viewer", quiet = T) {
+#   temp_dir <- tempdir()
+#   if (!missing(assets_folder)) {
+#     copy_assets(assets_folder, temp_dir)
+#   }
+#   if (server == F) {
+#     if (!quiet) getOption("viewer")(filepath)
+#   } else {
+#     my_app <- create_app(filepath, user_function, server)
+#     address <- paste0("http://", host, ":", port)
+#     if (!quiet) browseURL(address, browser = getOption(browser))
+#     host <- ifelse(host == "localhost", "0.0.0.0", host)
+#     httpuv::runServer(host, port, my_app, 250)
+#   }
+# }
 
 
 # Unescape special characters in JS files
