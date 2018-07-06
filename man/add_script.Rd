@@ -12,7 +12,8 @@ add_script(...)
 
 add_script_from_link(...)
 
-add_script_from_file(my_html, src, ...)
+add_script_from_file(my_html, src, inline = T,
+  mime = "application/javascript", ...)
 
 add_js_library(my_html, js_libs)
 }
@@ -30,6 +31,10 @@ HTML5-tags guides.}
 
 \item{src}{character; path to the local JS file.}
 
+\item{inline}{T or F; if T, the entire content of the file is copied to the HTML.}
+
+\item{mime}{Used if inline = F. The mime type of the UCI data. See reference for more detail.}
+
 \item{js_libs}{A character vector. The JavaScript libraries to use. Currently support 'plotly', 'p5', 'd3' and 'vega'.}
 }
 \description{
@@ -40,11 +45,13 @@ Adds inline script to HTML.
 
 Adds a script from an external link.
 
-Adds a script from local file; currently this is done inline.
+Adds a script from local file; this is done inline or via data UCI.
 
 Adds commonly used javascript liberaries via external links. 
 A note would be made when this function is called.
 }
 \references{
 Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}
+
+MIME types \url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types}
 }

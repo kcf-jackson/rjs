@@ -155,13 +155,16 @@ add_script <- set_default(add$script, into = "body")
 add_script_from_link <- set_default(add$script, into = "head")
 
 #' @rdname add_script
-#' @description Adds a script from local file; currently this is done inline.
+#' @description Adds a script from local file; this is done inline or via data UCI.
 #' @param my_html An HTML object, e.g. output from create_html().
 #' @param src character; path to the local JS file.
+#' @param inline T or F; if T, the entire content of the file is copied to the HTML.
+#' @param mime Used if inline = F. The mime type of the UCI data. See reference for more detail.
+#' @references MIME types \url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types}
 #' @export
-add_script_from_file <- function(my_html, src, ...) {
-  inline = T
+add_script_from_file <- function(my_html, src, inline = T, mime = "application/javascript", ...) {
   if (inline) return(add_script(my_html, JS_(readLines(src)), ...))
+  src <- base64enc::dataURI(mime = mime, file = src)
   add_script_from_link(my_html, src = src, ...)
 }
 
