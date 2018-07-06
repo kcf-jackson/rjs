@@ -15,7 +15,8 @@ Imports: htmltools,
     purrr,
     functional,
     assertthat,
-    subprocess
+    subprocess,
+    base64enc
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr

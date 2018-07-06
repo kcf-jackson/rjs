@@ -1,6 +1,6 @@
 #' jsvis
 #' @name jsvis
-#' @importFrom utils browseURL
+#' @importFrom utils browseURL head tail
 #' @description This package facilitates the use of JavaScript in R for animated / interactive data visualisation.
 utils::globalVariables(".")
 
