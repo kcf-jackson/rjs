@@ -1,7 +1,7 @@
-Package: jsvis
+Package: rjs
 Title: Javascript Visualisation in R
 Version: 0.0.7
-Authors@R: person("Chun Fung", "Kwok", email = "kcf.jackson@gmail.com", role = c("aut", "cre"))
+Authors@R: person("Chun Fung (Jackson)", "Kwok", email = "kcf.jackson@gmail.com", role = c("aut", "cre"))
 Description: This package facilitates the use of JavaScript in R for animated / interactive data visualisation.
 Depends: R (>= 3.4.4)
 License: MIT + file LICENSE

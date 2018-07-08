@@ -25,7 +25,6 @@ Every html-tag function in \code{add} takes two named arguments \code{html} and 
 }
 \examples{
 \dontrun{
-library(jsvis)
 create_html() \%>\% 
   add$h2(into = "body", "A demo webpage") \%>\% 
   add$div(into = "body", "I am a DIV") \%>\% 

@@ -63,7 +63,6 @@ has_identifier <- function(el, identifier) {
 #' @format \code{add} is a list / family of functions for inserting html tags into a html document.
 #' @examples 
 #' \dontrun{
-#' library(jsvis)
 #' create_html() %>% 
 #'   add$h2(into = "body", "A demo webpage") %>% 
 #'   add$div(into = "body", "I am a DIV") %>% 
