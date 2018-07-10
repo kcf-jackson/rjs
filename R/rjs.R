@@ -1,4 +1,4 @@
-#' rjs
+#' rjs: Modelling in R. Interactivity in JavaScript.
 #' @name rjs
 #' @importFrom utils browseURL head tail
 #' @importFrom stats setNames
@@ -7,7 +7,6 @@ utils::globalVariables(".")
 
 
 #' Forward pipe operator
-#'
 #' @name %>%
 #' @rdname forward_pipe
 #' @keywords internal
@@ -18,7 +17,6 @@ NULL
 
 
 #' Compound assignment Pipe operator
-#'
 #' @name %<>%
 #' @rdname compound_pipe
 #' @keywords internal

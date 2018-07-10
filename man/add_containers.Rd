@@ -29,7 +29,7 @@ add_container(...)
 
 \code{into} Characters; an identifier. It could be a tag name, an element id or a class name. 
 
-\code{...} Element contents and attributes; attrbutes must be named. See references for 
+\code{...} (Optional) Element contents and attributes; attrbutes must be named. See references for 
 HTML5-tags guides.}
 }
 \description{

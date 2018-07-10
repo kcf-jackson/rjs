@@ -15,8 +15,8 @@ HTML5-tags guides.}
 }
 \description{
 The add_* functions are divided into 6 categories. See 
-\link{add_containers}, \link{add_text}, \link{add_widget}, \link{add_script}, 
-\link{add_style} and \link{add_svg}.
+\link{add_containers}, \link{add_texts}, \link{add_widgets}, \link{add_scripts}, 
+\link{add_styles} and \link{add_svgs}.
 }
 \references{
 Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}

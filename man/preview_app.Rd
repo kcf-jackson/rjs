@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprecated.R
 \name{preview_app}
 \alias{preview_app}
-\title{Preview app}
+\title{Preview app (Deprecated)}
 \usage{
 preview_app(...)
 }
@@ -10,5 +10,5 @@ preview_app(...)
 \item{...}{Arguments to pass to `start_app'. See help("start_app").}
 }
 \description{
-Preview app
+This function is deprecated. Use \link{start_app} instead.
 }
