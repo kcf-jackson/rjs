@@ -15,7 +15,7 @@ add_script_from_link(...)
 add_script_from_file(my_html, src, inline = T,
   mime = "application/javascript", ...)
 
-add_js_library(my_html, js_libs)
+add_js_library(my_html, js_libs, offline = F)
 }
 \arguments{
 \item{...}{Takes three arguments for \code{add_script} and \code{add_script_from_link}.
@@ -36,6 +36,8 @@ HTML5-tags guides.}
 \item{mime}{Used if inline = F. The mime type of the UCI data. See reference for more detail.}
 
 \item{js_libs}{A character vector. The JavaScript libraries to use. Currently support 'plotly', 'p5', 'd3' and 'vega'.}
+
+\item{offline}{T or F; if T, a local version of the file would be used.}
 }
 \description{
 Four ways to add script to HTML: \code{add_script}, \code{add_script_from_link}, 

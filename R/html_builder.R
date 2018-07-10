@@ -172,33 +172,51 @@ add_script_from_file <- function(my_html, src, inline = T, mime = "application/j
 #' @description Adds commonly used javascript liberaries via external links. 
 #' A note would be made when this function is called.
 #' @param js_libs A character vector. The JavaScript libraries to use. Currently support 'plotly', 'p5', 'd3' and 'vega'.
+#' @param offline T or F; if T, a local version of the file would be used.
 #' @export
-add_js_library <- function(my_html, js_libs) {
-  list_links <- js_src()
+add_js_library <- function(my_html, js_libs, offline = F) {
+  list_links <- js_src(offline)
   if (!any(js_libs %in% names(list_links))) {
     return(my_html)
   }
   
-  cat("Note: When the html file is served, it'll download JavaScript libraries from:\n")
+  if (!offline)
+    cat("Note: When the html file is served, it'll download JavaScript libraries from:\n")
+    
   for (lib0 in js_libs) {
     if (lib0 %in% names(list_links)) {
       link <- list_links[[lib0]]
-      my_html %<>% add_script_from_link(src = link)
+      if (offline) {
+        my_html %<>% add_script_from_file(src = link, inline = F)
+      } else {
+        my_html %<>% add_script_from_link(src = link)  
+      }
       cat("  ", link, "\n")
     }
   }
   my_html
 }
 
-js_src <- function() {
+
+js_src <- function(offline = F) {
   # JS libraries source links
-  list(
-    jquery = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js", 
-    p5 = "https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.js",
-    plotly = "https://cdn.plot.ly/plotly-latest.min.js",
-    vega = "https://vega.github.io/vega/vega.min.js",
-    d3 = "https://d3js.org/d3.v4.min.js"
-  )
+  if (!offline) {
+    lib_link <- list(
+      jquery = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js", 
+      p5 = "https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.js",
+      plotly = "https://cdn.plot.ly/plotly-latest.min.js",
+      vega = "https://vega.github.io/vega/vega.min.js",
+      d3 = "https://d3js.org/d3.v4.min.js"
+    )
+  } else {
+    filenames <- c("jquery.min.js", "p5.js", "plotly-latest.min.js",
+                   "vega.min.js", "d3.v4.min.js")
+    listnames <- c("jquery", "p5", "plotly", "vega", "d3")
+    lib_link <- filenames %>% 
+      purrr::map(~system.file("js", .x, package = "rjs")) %>% 
+      setNames(listnames)
+  }
+  lib_link
 }
 
 
