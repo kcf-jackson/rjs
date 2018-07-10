@@ -1,6 +1,7 @@
 #' rjs
 #' @name rjs
 #' @importFrom utils browseURL head tail
+#' @importFrom stats setNames
 #' @description This package facilitates the use of JavaScript in R for animated / interactive data visualisation.
 utils::globalVariables(".")
 
