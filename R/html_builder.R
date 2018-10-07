@@ -6,10 +6,10 @@
 #' @param FUN A function.
 #' @param ... Named arguments.
 #' @export
-#' @examples 
+#' @examples
 #' test_fun <- function(a, b) { paste(a, b) }
 #' test_fun_2 <- set_default(test_fun, a = "Hello")
-#' 
+#'
 #' test_fun("Hello", "World")
 #' # "Hello World"
 #' test_fun_2("World")
@@ -21,7 +21,7 @@ set_default <- function(FUN, ...) {
     list_diff <- !(names(list1) %in% names(list2))
     c(list1[list_diff], list2)
   }
-  
+
   orig_list = list(...)
   function(...) {
     do.call(FUN, list_union(orig_list, list(...)))
@@ -172,9 +172,10 @@ add_script_from_file <- function(my_html, src, inline = T, mime = "application/j
 }
 
 #' @rdname add_scripts
-#' @description Adds commonly used javascript liberaries via external links. 
+#' @description Adds commonly used javascript liberaries via external links.
 #' A note would be made when this function is called.
-#' @param js_libs A character vector. The JavaScript libraries to use. Currently support 'plotly', 'p5', 'd3' and 'vega'.
+#' @param js_libs A character vector. The JavaScript libraries to use.
+#' Currently support 'plotly', 'p5', 'd3', 'vega' and 'jquery'.
 #' @param offline T or F; if T, a local version of the file would be used.
 #' @export
 add_js_library <- function(my_html, js_libs, offline = F) {
@@ -182,17 +183,17 @@ add_js_library <- function(my_html, js_libs, offline = F) {
   if (!any(js_libs %in% names(list_links))) {
     return(my_html)
   }
-  
+
   if (!offline)
     cat("Note: When the html file is served, it'll download JavaScript libraries from:\n")
-    
+
   for (lib0 in js_libs) {
     if (lib0 %in% names(list_links)) {
       link <- list_links[[lib0]]
       if (offline) {
         my_html %<>% add_script_from_file(src = link, inline = F)
       } else {
-        my_html %<>% add_script_from_link(src = link)  
+        my_html %<>% add_script_from_link(src = link)
       }
       cat("  ", link, "\n")
     }
@@ -205,7 +206,7 @@ js_src <- function(offline = F) {
   # JS libraries source links
   if (!offline) {
     lib_link <- list(
-      jquery = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js", 
+      jquery = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js",
       p5 = "https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.js",
       plotly = "https://cdn.plot.ly/plotly-latest.min.js",
       vega = "https://vega.github.io/vega/vega.min.js",
@@ -215,8 +216,8 @@ js_src <- function(offline = F) {
     filenames <- c("jquery.min.js", "p5.js", "plotly-latest.min.js",
                    "vega.min.js", "d3.v4.min.js")
     listnames <- c("jquery", "p5", "plotly", "vega", "d3")
-    lib_link <- filenames %>% 
-      purrr::map(~system.file("js", .x, package = "rjs")) %>% 
+    lib_link <- filenames %>%
+      purrr::map(~system.file("js", .x, package = "rjs")) %>%
       setNames(listnames)
   }
   lib_link
@@ -235,17 +236,17 @@ js_src <- function(offline = F) {
 #' create_html() %>% map_add(add_row, list(id = make_id("row", 1:5)))
 #' @export
 map_add <- function(my_html, add_fun, args_list, n, into = "body", ...) {
-  if (missing(n) && missing(args_list)) 
-    stop("One of 'n' and 'list0' must be present.") 
-  
-  if (missing(args_list)) 
+  if (missing(n) && missing(args_list))
+    stop("One of 'n' and 'list0' must be present.")
+
+  if (missing(args_list))
     args_list <- list(rep("", n))
-  
+
   if (length(into) > 1) {
     args_list <- append(list(into = into), args_list)
     return(add_array(my_html, add_fun, args_list, ...))
   }
-    
+
   add_array(my_html, add_fun, args_list, into = into, ...)
 }
 
