@@ -35,7 +35,8 @@ HTML5-tags guides.}
 
 \item{mime}{Used if inline = F. The mime type of the UCI data. See reference for more detail.}
 
-\item{js_libs}{A character vector. The JavaScript libraries to use. Currently support 'plotly', 'p5', 'd3' and 'vega'.}
+\item{js_libs}{A character vector. The JavaScript libraries to use.
+Currently support 'plotly', 'p5', 'd3', 'vega' and 'jquery'.}
 
 \item{offline}{T or F; if T, a local version of the file would be used.}
 }
@@ -49,7 +50,7 @@ Adds a script from an external link.
 
 Adds a script from local file; this is done inline or via data UCI.
 
-Adds commonly used javascript liberaries via external links. 
+Adds commonly used javascript liberaries via external links.
 A note would be made when this function is called.
 }
 \references{

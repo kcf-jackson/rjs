@@ -4,8 +4,8 @@
 \alias{add_radio_button_group}
 \title{Radio button group}
 \usage{
-add_radio_button_group(my_html, into, widget_id, values, labels, stack = T,
-  ...)
+add_radio_button_group(my_html, into, widget_id, values, labels,
+  stack = T, ...)
 }
 \arguments{
 \item{my_html}{An HTML object; output from 'create_html'.}
@@ -20,7 +20,7 @@ add_radio_button_group(my_html, into, widget_id, values, labels, stack = T,
 
 \item{stack}{T or F; if TRUE, the radio buttons are stacked vertically.}
 
-\item{...}{Element contents and attributes for the radio widget; attrbutes must be named. 
+\item{...}{Element contents and attributes for the radio widget; attrbutes must be named.
 See references for HTML5-tags guides.}
 }
 \description{

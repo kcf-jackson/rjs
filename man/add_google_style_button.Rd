@@ -11,7 +11,7 @@ add_google_style_button(my_html, material_id, ..., into = "body")
 
 \item{material_id}{Material id from google material design, e.g. "play_circle_outline". More other options, see \url{https://material.io/icons/}.}
 
-\item{...}{Element contents and attributes; attrbutes must be named. See references for 
+\item{...}{Element contents and attributes; attrbutes must be named. See references for
 HTML5-tags guides.}
 
 \item{into}{characters; an identifier. It could be a tag name, an element id or a class name.}
@@ -21,6 +21,6 @@ Adds google material-design icon / button.
 }
 \note{
 The default cursor over the icon is set to be a pointer. Use "style = 'cursor: xxx'" for other
-options. A list of options can be found at 
+options. A list of options can be found at
 \url{https://www.w3schools.com/cssref/playit.asp?filename=playcss_cursor&preval=pointer}.
 }

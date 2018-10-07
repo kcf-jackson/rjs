@@ -7,14 +7,14 @@
 #' p$stop_daemon_app()
 #' }
 #'
+#' @export
+#' 
 #' @details
 #' \code{$new()} starts a new process.
 #' 
 #' \code{$start_daemon_app(filename)} takes a rjs app filepath argument.
 #' 
 #' \code{$stop_daemon_app()} stops the process.
-#' 
-#' @export
 daemon_app <- R6::R6Class(
   "daemon_app",
   public = list(

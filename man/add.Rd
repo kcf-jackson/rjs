@@ -30,6 +30,7 @@ create_html() \%>\%
   add$div(into = "body", "I am a DIV") \%>\% 
   start_app()
 }
+
 }
 \references{
 Quick guide to HTML tags \url{https://www.nobledesktop.com/html-quick-guide/}

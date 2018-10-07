@@ -5,8 +5,8 @@
 \title{Add a toggle button with google material design}
 \usage{
 add_google_toggle_button(my_html, into = "body", widget_id,
-  material_1 = "play_circle_outline", material_2 = "pause_circle_outline",
-  ...)
+  material_1 = "play_circle_outline",
+  material_2 = "pause_circle_outline", ...)
 }
 \arguments{
 \item{my_html}{An HTML object; output from 'create_html'.}
@@ -19,7 +19,7 @@ add_google_toggle_button(my_html, into = "body", widget_id,
 
 \item{material_2}{Material id from google material design, e.g. "pause_circle_outline". More other options, see \url{https://material.io/icons/}.}
 
-\item{...}{Element contents and attributes for the widgets (div); attrbutes must be named. See references for 
+\item{...}{Element contents and attributes for the widgets (div); attrbutes must be named. See references for
 HTML5-tags guides.}
 }
 \description{
@@ -29,10 +29,10 @@ Add a toggle button with google material design
 The two material-icons should have the same size.
 }
 \examples{
-\dontrun{ 
-create_html() \%>\% 
-  add_google_style() \%>\% 
-  add_google_toggle_button(into = "body", widget_id = "gbutton_1") \%>\% 
+\dontrun{
+create_html() \%>\%
+  add_google_style() \%>\%
+  add_google_toggle_button(into = "body", widget_id = "gbutton_1") \%>\%
   start_app()
 }
 }

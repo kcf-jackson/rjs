@@ -2,9 +2,7 @@
 % Please edit documentation in R/documentation.R, R/html_builder.R
 \name{add_svgs}
 \alias{add_svgs}
-\alias{add_svgs}
 \alias{add_svg}
-\alias{add_svgs}
 \alias{add_image}
 \title{Helper functions to add element to HTML}
 \usage{

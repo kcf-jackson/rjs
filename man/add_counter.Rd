@@ -17,12 +17,12 @@ add_counter(my_html, into = "body", widget_id, label = "My Counter",
 
 \item{label}{(optional) character; the label text.}
 
-\item{label_id}{(optional) character; an unique identifier for the label. 
+\item{label_id}{(optional) character; an unique identifier for the label.
 Default to be "XXX_label", where XXX is the widget_id.}
 
 \item{counter}{(optional) numeric; starting value of the counter.}
 
-\item{counter_id}{(optional) character; an unique identifier for the counter. 
+\item{counter_id}{(optional) character; an unique identifier for the counter.
 Default to be "XXX_counter", where XXX is the widget_id.}
 }
 \description{
@@ -31,8 +31,8 @@ A counter widget consists of a label and a counter (<label> + <span>).
 }
 \examples{
 \dontrun{
-create_html() \%>\% 
-  add_counter(widget_id = "counter_1") \%>\% 
+create_html() \%>\%
+  add_counter(widget_id = "counter_1") \%>\%
   start_app()
 }
 }
