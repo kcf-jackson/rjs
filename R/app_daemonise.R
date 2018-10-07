@@ -1,28 +1,39 @@
 #' Start and Stop daemonized app
-#' @usage \preformatted{
-#' p <- daemon_app$new()
 #' 
-#' p$start_daemon_app(filename)
+#' @name daemon_app
 #' 
-#' p$stop_daemon_app()
+#' @section Usage:
+#' \preformatted{
+#' app <- daemon_app$new()
+#' 
+#' app$start_daemon_app(filename = NULL)
+#' 
+#' app$stop_daemon_app()
 #' }
-#'
-#' @export
 #' 
-#' @details
+#' @section Arguments:
+#' \code{filename} character string; the path to the app file.
+#' 
+#' @section Methods:
 #' \code{$new()} starts a new process.
 #' 
-#' \code{$start_daemon_app(filename)} takes a rjs app filepath argument.
+#' \code{$start_daemon_app()} takes a rjs app filepath argument and starts a
+#' child process in the background.
 #' 
 #' \code{$stop_daemon_app()} stops the process.
+#' 
+NULL
+
+
+#' @export
 daemon_app <- R6::R6Class(
   "daemon_app",
   public = list(
-    #' A handle returned by `subprocess::spawn_process`.
+    # A handle returned by `subprocess::spawn_process`.
     handle = list(),
 
-    #' Start daemonized app
-    #' @param filename filepath to the app R file.
+    # Start daemonized app
+    # @param filename filepath to the app R file.
     start_daemon_app = function(filename) {
       R_binary <- function () {
         R_exe <- ifelse(tolower(.Platform$OS.type) == "windows", "R.exe", "R")
@@ -45,7 +56,7 @@ daemon_app <- R6::R6Class(
       invisible(self$handle)
     },
 
-    #' Stop daemonized app
+    # Stop daemonized app
     stop_daemon_app = function() {
       cat("Stopping server...\n")
       subprocess::process_terminate(self$handle)
