@@ -35,7 +35,8 @@ setup_site <- function(my_html, assets) {
     htmltools::save_html(my_html, tgt_path, libdir = temp_dir)
     unescape_html(tgt_path)  
   } else {
-    file.copy(filepath, tgt_path, overwrite = T)    
+    if (!file.exists(my_html)) stop("File doesn't exist:", my_html)
+    file.copy(my_html, tgt_path, overwrite = T)    
   }
 
   copy_assets(assets, temp_dir)
